@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "Core.Grpc.Protos.Notifications";
+
+package notification;
+
+service Notification
+{
+	rpc GetNotifications(NotificationRequest) returns (stream NotificationResponse) {}
+    //rpc GetNotifications(stream NotificationRequest) returns (stream NotificationResponse) {}
+}
+
+// The request message containing the subscribers's name.
+message NotificationRequest {
+    string name = 1;
+}
+
+// The response message containing the message.
+message NotificationResponse {
+    string message = 1;
+  }

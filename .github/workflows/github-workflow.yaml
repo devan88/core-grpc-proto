@@ -1,0 +1,26 @@
+name: package-protos
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+      - "release"
+      - "development"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2.1.0
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Pack
+        run: dotnet pack --configuration Release
+      - name: Push
+        run: dotnet nuget push "bin/Release/*.nupkg" --api-key ${{secrets.PUSH_PACKAGE}} --source "github"

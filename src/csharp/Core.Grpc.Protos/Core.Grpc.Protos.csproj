@@ -1,10 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.21.5" />
     <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
@@ -17,5 +12,22 @@
   <ItemGroup>
     <Protobuf Include="../../../protos/**/*.proto" OutputDir="$(Protobuf_OutputPath)%(RelativeDir)" CompileOutputs="false" GrpcServices="Server,Client" />
   </ItemGroup>
+  
+  <PropertyGroup Condition=" '$(Version)' == '' ">
+    <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">0.0.1</VersionPrefix>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>devan88</Authors>
+    <PackageProjectUrl>https://github.com/devan88/core-grpc-proto</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devan88/core-grpc-proto</RepositoryUrl>
+    <Version>$(Version)</Version>
+    <Product>$(AssemblyName)</Product>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
 
 </Project>

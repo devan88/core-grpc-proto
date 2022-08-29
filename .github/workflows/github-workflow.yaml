@@ -34,4 +34,4 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release
       - name: Push
-        run: dotnet nuget push "**/bin/Release/*.nupkg" --source "https://nuget.pkg.github.com/devan88/index.json"
+        run: dotnet nuget push "**/bin/Release/*.nupkg" --source github

@@ -19,14 +19,12 @@ jobs:
         uses: actions/setup-dotnet@v2.1.0
         with:
           dotnet-version: 6.0.x
-      - name: Add nuget source
+      - name: Update nuget source
         run: >- 
-          dotnet nuget add source "https://nuget.pkg.github.com/devan88/index.json" 
-          --name "github" 
+          dotnet nuget update source github
           --username "devan88"
           --password ${{ secrets.PUSH_PACKAGE }}
           --store-password-in-clear-text
-        working-directory: /
       - name: Restore dependencies
         run: dotnet restore
       - name: Build

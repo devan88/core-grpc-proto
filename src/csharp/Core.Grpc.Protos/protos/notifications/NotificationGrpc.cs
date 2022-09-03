@@ -58,6 +58,14 @@ namespace Core.Grpc.Protos.Notifications {
         __Marshaller_notification_NotificationRequest,
         __Marshaller_notification_NotificationResponse);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse> __Method_StreamNotifications = new grpc::Method<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "StreamNotifications",
+        __Marshaller_notification_NotificationRequest,
+        __Marshaller_notification_NotificationResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -70,6 +78,12 @@ namespace Core.Grpc.Protos.Notifications {
     {
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task GetNotifications(global::Core.Grpc.Protos.Notifications.NotificationRequest request, grpc::IServerStreamWriter<global::Core.Grpc.Protos.Notifications.NotificationResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task StreamNotifications(grpc::IAsyncStreamReader<global::Core.Grpc.Protos.Notifications.NotificationRequest> requestStream, grpc::IServerStreamWriter<global::Core.Grpc.Protos.Notifications.NotificationResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -113,6 +127,16 @@ namespace Core.Grpc.Protos.Notifications {
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_GetNotifications, null, options, request);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse> StreamNotifications(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return StreamNotifications(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse> StreamNotifications(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_StreamNotifications, null, options);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override NotificationClient NewInstance(ClientBaseConfiguration configuration)
@@ -127,7 +151,8 @@ namespace Core.Grpc.Protos.Notifications {
     public static grpc::ServerServiceDefinition BindService(NotificationBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_GetNotifications, serviceImpl.GetNotifications).Build();
+          .AddMethod(__Method_GetNotifications, serviceImpl.GetNotifications)
+          .AddMethod(__Method_StreamNotifications, serviceImpl.StreamNotifications).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -138,6 +163,7 @@ namespace Core.Grpc.Protos.Notifications {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, NotificationBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_GetNotifications, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse>(serviceImpl.GetNotifications));
+      serviceBinder.AddMethod(__Method_StreamNotifications, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::Core.Grpc.Protos.Notifications.NotificationRequest, global::Core.Grpc.Protos.Notifications.NotificationResponse>(serviceImpl.StreamNotifications));
     }
 
   }

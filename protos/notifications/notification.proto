@@ -7,7 +7,7 @@ package notification;
 service Notification
 {
 	rpc GetNotifications(NotificationRequest) returns (stream NotificationResponse) {}
-    //rpc GetNotifications(stream NotificationRequest) returns (stream NotificationResponse) {}
+    rpc StreamNotifications(stream NotificationRequest) returns (stream NotificationResponse) {}
 }
 
 // The request message containing the subscribers's name.

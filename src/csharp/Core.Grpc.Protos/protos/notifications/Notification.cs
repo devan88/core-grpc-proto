@@ -26,10 +26,13 @@ namespace Core.Grpc.Protos.Notifications {
           string.Concat(
             "ChJub3RpZmljYXRpb24ucHJvdG8SDG5vdGlmaWNhdGlvbiIjChNOb3RpZmlj",
             "YXRpb25SZXF1ZXN0EgwKBG5hbWUYASABKAkiJwoUTm90aWZpY2F0aW9uUmVz",
-            "cG9uc2USDwoHbWVzc2FnZRgBIAEoCTJtCgxOb3RpZmljYXRpb24SXQoQR2V0",
-            "Tm90aWZpY2F0aW9ucxIhLm5vdGlmaWNhdGlvbi5Ob3RpZmljYXRpb25SZXF1",
-            "ZXN0GiIubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblJlc3BvbnNlIgAwAUIh",
-            "qgIeQ29yZS5HcnBjLlByb3Rvcy5Ob3RpZmljYXRpb25zYgZwcm90bzM="));
+            "cG9uc2USDwoHbWVzc2FnZRgBIAEoCTLRAQoMTm90aWZpY2F0aW9uEl0KEEdl",
+            "dE5vdGlmaWNhdGlvbnMSIS5ub3RpZmljYXRpb24uTm90aWZpY2F0aW9uUmVx",
+            "dWVzdBoiLm5vdGlmaWNhdGlvbi5Ob3RpZmljYXRpb25SZXNwb25zZSIAMAES",
+            "YgoTU3RyZWFtTm90aWZpY2F0aW9ucxIhLm5vdGlmaWNhdGlvbi5Ob3RpZmlj",
+            "YXRpb25SZXF1ZXN0GiIubm90aWZpY2F0aW9uLk5vdGlmaWNhdGlvblJlc3Bv",
+            "bnNlIgAoATABQiGqAh5Db3JlLkdycGMuUHJvdG9zLk5vdGlmaWNhdGlvbnNi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {

@@ -1,5 +1,5 @@
 {
-  "name": "core-grpc-web-protos",
+  "name": "@devan88/core-grpc-web-protos",
   "version": "0.0.0",
   "description": "protos package",
   "main": "lib/index.js",

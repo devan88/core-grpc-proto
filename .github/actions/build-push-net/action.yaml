@@ -21,12 +21,10 @@ runs:
         dotnet-version: 6.0.x
     - name: Update nuget source
       working-directory: ${{ inputs.working_directory }}
-      run: |
-        echo $(pwd)
-        echo $(ls -la)
-        dotnet nuget update source github \
-        --username "devan88" \
-        --password ${{ inputs.github_token }} \
+      run: >-
+        dotnet nuget update source github
+        --username "devan88"
+        --password ${{ inputs.github_token }}
         --store-password-in-clear-text
       shell: bash
     - name: Restore dependencies
@@ -35,13 +33,13 @@ runs:
       shell: bash
     - name: Build
       working-directory: ${{ inputs.working_directory }}
-      run: dotnet build --no-restore --configuration ${{ env.configuration }}
+      run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
       shell: bash
     - name: Pack
       working-directory: ${{ inputs.working_directory }}
-      run: dotnet pack --configuration ${{ env.configuration }} -p:Version=${{ inputs.next_version }}
+      run: dotnet pack --configuration ${{ env.CONFIGURATION }} -p:Version=${{ inputs.next_version }}
       shell: bash
     - name: Push
       working-directory: ${{ inputs.working_directory }}
-      run: dotnet nuget push "**/bin/${{ env.configuration }}/*.nupkg" --source github
+      run: dotnet nuget push "**/bin/${{ env.CONFIGURATION }}/*.nupkg" --source github
       shell: bash

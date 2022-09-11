@@ -39,6 +39,6 @@ runs:
       shell: bash
     - run: npm publish ./bin/core-grpc-web-protos-${{ inputs.next_version }}.tgz
       env:
-        NODE_AUTH_TOKEN: ${{ inputs.github_token }}
+        NPM_TOKEN: ${{ inputs.github_token }}
       working-directory: ${{ inputs.working_directory }}
       shell: bash

@@ -37,7 +37,7 @@ runs:
     - run: npm run pack
       working-directory: ${{ inputs.working_directory }}
       shell: bash
-    - run: npm publish ./bin/${{ GITHUB_REPOSITORY_OWNER }}-core-grpc-web-protos-${{ inputs.next_version }}.tgz
+    - run: npm publish ./bin/${{ github.repository_owner }}-core-grpc-web-protos-${{ inputs.next_version }}.tgz
       env:
         NPM_TOKEN: ${{ inputs.github_token }}
       working-directory: ${{ inputs.working_directory }}

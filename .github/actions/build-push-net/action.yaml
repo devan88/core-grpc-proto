@@ -18,6 +18,7 @@ runs:
     - name: working-directory
       run: |
         cd ${{ inputs.working_directory }}
+        echo $(pwd)
         echo $(ls -la)
       shell: bash
     - name: Setup .NET
@@ -25,11 +26,13 @@ runs:
       with:
         dotnet-version: 6.0.x
     - name: Update nuget source
-      run: >- 
-        dotnet nuget update source github
-        --username "devan88"
-        --password ${{ inputs.github_token }}
+      run: | 
+        dotnet nuget update source github \
+        --username "devan88" \
+        --password ${{ inputs.github_token }} \
         --store-password-in-clear-text
+        echo $(pwd)
+        echo $(ls -la)
       shell: bash
     - name: Restore dependencies
       run: dotnet restore

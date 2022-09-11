@@ -17,7 +17,7 @@ outputs:
 runs:
   using: docker
   image: ../../../Dockerfile
-  entrypoint: ../../../entrypoint.sh
+  entrypoint: ./entrypoint.sh
   # using: composite
   # steps:
   #   - name: checkout

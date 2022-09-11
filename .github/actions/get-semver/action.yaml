@@ -13,7 +13,7 @@ inputs:
 outputs:
   next_version:
     description: "The semantic version"
-    value: ${{ steps.run-git-semver.outputs.next_version }}
+    value: ${{ steps.run-build-docker.outputs.next_version }}
 runs:
   using: composite
   steps:
@@ -22,9 +22,11 @@ runs:
     - name: build-docker
       run: >-
         docker build -f ./Dockerfile . -t git-semver:${{ inputs.current_version }}
-      shell: bash
-    - name: run-git-semver
-      run: >-
         next_version=$(docker run --rm git-semver:0.0.2 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
         echo "::set-output name=next_version::$(echo $next_version)"
       shell: bash
+    # - name: run-git-semver
+    #   run: >-
+    #     next_version=$(docker run --rm git-semver:0.0.2 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+    #     echo "::set-output name=next_version::$(echo $next_version)"
+    #   shell: bash

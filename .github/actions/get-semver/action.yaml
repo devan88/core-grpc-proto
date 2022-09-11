@@ -17,6 +17,7 @@ outputs:
 runs:
   using: docker
   image: ../../../Dockerfile
+  entrypoint: /bin/bash
   args:
     - next_version=$(git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
     - echo "::set-output name=next_version::$(echo $next_version)"

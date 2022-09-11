@@ -31,7 +31,7 @@ jobs:
       - name: Echo next version
         shell: bash
         run: |
-          echo ${{ steps.get-next-version.outputs.next_version}}
+          echo ${{ steps.get-next-version.outputs.next_version }}
 
       # - name: Setup .NET
       #   uses: actions/setup-dotnet@v2.1.0

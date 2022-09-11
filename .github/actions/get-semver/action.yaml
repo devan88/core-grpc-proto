@@ -25,6 +25,6 @@ runs:
       shell: bash
     - name: run-git-semver
       run: |
-        next_version=$(docker run --rm git-semver:${{ inputs.current_version }} git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
-        echo "::set-output name=next_version::$(echo $next_version)"
+        version=$(docker run --rm git-semver:${{ inputs.current_version }} git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+        echo "::set-output name=next_version::$version"
       shell: bash

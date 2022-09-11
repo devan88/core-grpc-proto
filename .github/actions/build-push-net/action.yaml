@@ -15,17 +15,13 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v3
-    - name: working-directory
-      run: |
-        cd ${{ inputs.working_directory }}
-        echo $(pwd)
-        echo $(ls -la)
       shell: bash
     - name: Setup .NET
       uses: actions/setup-dotnet@v2.1.0
       with:
         dotnet-version: 6.0.x
     - name: Update nuget source
+      working-directory: working_directory
       run: |
         echo $(pwd)
         echo $(ls -la)
@@ -35,14 +31,18 @@ runs:
         --store-password-in-clear-text
       shell: bash
     - name: Restore dependencies
+      working-directory: working_directory
       run: dotnet restore
       shell: bash
     - name: Build
+      working-directory: working_directory
       run: dotnet build --no-restore --configuration ${{ env.configuration }}
       shell: bash
     - name: Pack
+      working-directory: working_directory
       run: dotnet pack --configuration ${{ env.configuration }} -p:Version=${{ inputs.next_version }}
       shell: bash
     - name: Push
+      working-directory: working_directory
       run: dotnet nuget push "**/bin/${{ env.configuration }}/*.nupkg" --source github
       shell: bash

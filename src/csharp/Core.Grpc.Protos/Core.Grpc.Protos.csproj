@@ -12,7 +12,7 @@
   <ItemGroup>
     <Protobuf Include="../../../protos/**/*.proto" OutputDir="$(Protobuf_OutputPath)%(RelativeDir)" CompileOutputs="false" GrpcServices="Server,Client" />
   </ItemGroup>
-  
+
   <PropertyGroup Condition=" '$(Version)' == '' ">
     <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">0.0.1</VersionPrefix>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
@@ -27,7 +27,6 @@
     <RepositoryUrl>https://github.com/devan88/core-grpc-proto</RepositoryUrl>
     <Version>$(Version)</Version>
     <Product>$(AssemblyName)</Product>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

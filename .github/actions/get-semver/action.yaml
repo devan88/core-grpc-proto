@@ -16,8 +16,8 @@ outputs:
     #value: ${{ steps.run-git-semver.outputs.next_version }}
 runs:
   using: docker
-  image: ./Dockerfile
-  entrypoint: ./entrypoint.sh
+  image: ../../../Dockerfile
+  entrypoint: ../../../entrypoint.sh
   # using: composite
   # steps:
   #   - name: checkout

@@ -7,6 +7,8 @@ on:
       - "release"
       - "development"
       - "feature/*"
+env:
+  configuration: "Release"
 jobs:
   build:
     defaults:
@@ -31,7 +33,11 @@ jobs:
       - name: Echo next version
         shell: bash
         run: |
-          echo "Next version: ${{ steps.get-next-version.outputs.next_version }}"
+          echo ${{ steps.get-next-version.outputs.next_version }}
+      - name: Build & Push Nuget
+        uses: ./.github/actions/build-push-net
+        with:
+          next_version: ${{ steps.get-next-version.outputs.next_version }}
 
       # - name: Setup .NET
       #   uses: actions/setup-dotnet@v2.1.0

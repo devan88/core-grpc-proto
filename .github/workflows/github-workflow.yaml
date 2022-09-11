@@ -16,13 +16,18 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - name: Set Env
+        shell: bash
+        run: >-
+          echo "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+          echo "CURRENT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Get Next Version
         id: get-next-version
         uses: ./.github/actions/get-semver
         with:
           current_version: "0.0.0"
-          current_branch: $(git rev-parse --abbrev-ref HEAD)
-          current_commit: $(git rev-parse --short HEAD)
+          current_branch: ${{ env.CURRENT_BRANCH }}
+          current_commit: ${{ env.CURRENT_COMMIT }}
       - name: Echo next version
         shell: bash
         run: >-

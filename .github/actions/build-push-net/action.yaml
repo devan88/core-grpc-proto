@@ -1,6 +1,9 @@
 name: "Build & Push Nuget"
 description: "Runs dockerfile to output version"
 inputs:
+  working_directory:
+    description: "Working directory containing project"
+    required: true
   github_token:
     description: "Github token to push nuget package"
     required: true
@@ -10,8 +13,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: checkout
-      uses: actions/checkout@v3
+    - name: working-directory
+      run: cd ${{ inputs.working_directory }}
+      shell: bash
     - name: Setup .NET
       uses: actions/setup-dotnet@v2.1.0
       with:

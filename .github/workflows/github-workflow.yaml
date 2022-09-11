@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Set Env
         shell: bash
-        run: >-
+        run: |
           echo "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
           echo "CURRENT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Get Next Version
@@ -30,7 +30,7 @@ jobs:
           current_commit: ${{ env.CURRENT_COMMIT }}
       - name: Echo next version
         shell: bash
-        run: >-
+        run: |
           echo ${{ steps.get-next-version.outputs.next_version}}
 
       # - name: Setup .NET

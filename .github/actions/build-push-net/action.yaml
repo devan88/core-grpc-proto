@@ -1,6 +1,9 @@
 name: "Build & Push Nuget"
 description: "Runs dockerfile to output version"
 inputs:
+  github_token:
+    description: "Github token to push nuget package"
+    required: true
   next_version:
     description: "Next version"
     required: true
@@ -17,7 +20,7 @@ runs:
       run: >- 
         dotnet nuget update source github
         --username "devan88"
-        --password ${{ secrets.PUSH_PACKAGE }}
+        --password ${{ inputs.github_token }}
         --store-password-in-clear-text
       shell: bash
     - name: Restore dependencies

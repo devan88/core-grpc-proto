@@ -20,6 +20,7 @@ runs:
       with:
         node-version: 16
         registry-url: https://npm.pkg.github.com/
+        always-auth: true
     - run: npm ci
       working-directory: ${{ inputs.working_directory }}
       shell: bash

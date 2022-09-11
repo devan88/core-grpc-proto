@@ -18,4 +18,4 @@ message NotificationRequest {
 // The response message containing the message.
 message NotificationResponse {
     string message = 1;
-  }
+}

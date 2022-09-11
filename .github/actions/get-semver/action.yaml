@@ -1,0 +1,30 @@
+name: "Get Semantic Version"
+description: "Runs dockerfile to output version"
+inputs:
+  current_version:
+    description: "Current version"
+    required: true
+  current_branch:
+    description: "Current branch"
+    required: true
+  current_commit:
+    description: "Current commit head"
+    required: true
+outputs:
+  next_version:
+    description: "The semantic version"
+    value: ${{ steps.run-git-semver.outputs.next_version }}
+runs:
+  using: composite
+  steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: build-docker
+      run: >-
+        docker build -f ./Dockerfile . -t git-semver:${{ inputs.current_version }}
+      shell: bash
+    - name: run-git-semver
+      run: >-
+        next_version=$(docker run --rm git-semver:0.0.2 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+        echo "::set-output name=next_version::$(echo $next_version)"
+      shell: bash

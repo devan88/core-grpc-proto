@@ -1,0 +1,39 @@
+{
+  "name": "core-grpc-node-protos",
+  "version": "0.0.1",
+  "description": "protos package",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "protos"
+  ],
+  "scripts": {
+    "build-protos": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/build.ps1",
+    "build": "tsc",
+    "test": "npx ts-node src/tests/index.test.ts",
+    "pack": "npm pack --pack-destination ./bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devan88/core-grpc-proto.git"
+  },
+  "keywords": [
+    "proto",
+    "grpc",
+    "node"
+  ],
+  "author": "devan88",
+  "license": "ISC",
+  "devDependencies": {
+    "grpc_tools_node_protoc_ts": "^5.3.2",
+    "grpc-tools": "^1.11.2",
+    "ts-protoc-gen": "^0.15.0",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.12",
+    "@types/google-protobuf": "^3.15.6",
+    "google-protobuf": "^3.21.0"
+  }
+}

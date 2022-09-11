@@ -6,6 +6,7 @@ on:
       - "main"
       - "release"
       - "development"
+      - "feature/*"
 jobs:
   build:
     defaults:
@@ -15,21 +16,33 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2.1.0
+      - name: Get Next Version
+        id: get-next-version
+        uses: ./.github/actions/get-semver
         with:
-          dotnet-version: 6.0.x
-      - name: Update nuget source
-        run: >- 
-          dotnet nuget update source github
-          --username "devan88"
-          --password ${{ secrets.PUSH_PACKAGE }}
-          --store-password-in-clear-text
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
-      - name: Pack
-        run: dotnet pack --configuration Release
-      - name: Push
-        run: dotnet nuget push "**/bin/Release/*.nupkg" --source github
+          current_version: "0.0.0"
+          current_branch: $(git rev-parse --abbrev-ref HEAD)
+          current_commit: $(git rev-parse --short HEAD)
+      - name: Echo next version
+        uses: bash
+        run: >-
+          echo ${{ steps.get-next-version.outputs.next_version}}
+
+      # - name: Setup .NET
+      #   uses: actions/setup-dotnet@v2.1.0
+      #   with:
+      #     dotnet-version: 6.0.x
+      # - name: Update nuget source
+      #   run: >- 
+      #     dotnet nuget update source github
+      #     --username "devan88"
+      #     --password ${{ secrets.PUSH_PACKAGE }}
+      #     --store-password-in-clear-text
+      # - name: Restore dependencies
+      #   run: dotnet restore
+      # - name: Build
+      #   run: dotnet build --no-restore --configuration Release
+      # - name: Pack
+      #   run: dotnet pack --configuration Release
+      # - name: Push
+      #   run: dotnet nuget push "**/bin/Release/*.nupkg" --source github

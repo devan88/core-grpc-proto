@@ -41,6 +41,8 @@ jobs:
         working-directory: src/csharp/Core.Grpc.Protos
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
       - name: Build & Push Nuget
         uses: ./.github/actions/build-push-net
         with:

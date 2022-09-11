@@ -18,9 +18,10 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: 16
-        registry-url: https://npm.pkg.github.com/
-        always-auth: true
+        node-version: 18.8
+    - run: npm --version
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
     - run: npm ci
       working-directory: ${{ inputs.working_directory }}
       shell: bash
@@ -33,10 +34,10 @@ runs:
     - run: mkdir -p ./bin
       working-directory: ${{ inputs.working_directory }}
       shell: bash
-    - run: npm pack
+    - run: npm run pack
       working-directory: ${{ inputs.working_directory }}
       shell: bash
-    - run: npm publish ./core-grpc-web-protos-${{ inputs.next_version }}.tgz
+    - run: npm publish ./bin/core-grpc-web-protos-${{ inputs.next_version }}.tgz
       env:
         NODE_AUTH_TOKEN: ${{ inputs.github_token }}
       working-directory: ${{ inputs.working_directory }}

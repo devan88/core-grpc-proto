@@ -24,7 +24,7 @@ jobs:
           current_branch: $(git rev-parse --abbrev-ref HEAD)
           current_commit: $(git rev-parse --short HEAD)
       - name: Echo next version
-        uses: bash
+        shell: bash
         run: >-
           echo ${{ steps.get-next-version.outputs.next_version}}
 

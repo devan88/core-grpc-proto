@@ -19,13 +19,13 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v3
-    - name: build-docker
+    - name: Build git-semver
       run: |
         docker build -f ./Dockerfile . -t git-semver:${{ inputs.current_version }}
       shell: bash
-    - name: run-git-semver
+    - name: Run git-semver
+      id: run-git-semver
       run: |
-        version=$(docker run --rm git-semver:${{ inputs.current_version }} git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
-        echo $version
-        echo "::set-output name=next_version::$version"
+        next_version=$(docker run --rm git-semver:${{ inputs.current_version }} git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+        echo "::set-output name=next_version::$(echo $next_version)"
       shell: bash

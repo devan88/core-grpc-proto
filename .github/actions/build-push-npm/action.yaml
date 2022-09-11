@@ -32,7 +32,7 @@ runs:
     - run: mkdir -p ./bin
       working-directory: ${{ inputs.working_directory }}
       shell: bash
-    - run: npm run pack
+    - run: npm pack
       working-directory: ${{ inputs.working_directory }}
       shell: bash
     - run: npm publish ./bin/core-grpc-web-protos-${{ inputs.next_version }}.tgz

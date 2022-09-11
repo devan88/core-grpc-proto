@@ -60,5 +60,5 @@ jobs:
         uses: ./.github/actions/build-push-npm
         with:
           working_directory: "./src/npm/core-grpc-web-protos"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PUSH_PACKAGE }}
           next_version: ${{ needs.prepare-build.outputs.next_version }}

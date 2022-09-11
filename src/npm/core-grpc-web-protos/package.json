@@ -1,6 +1,6 @@
 {
   "name": "core-grpc-web-protos",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "protos package",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

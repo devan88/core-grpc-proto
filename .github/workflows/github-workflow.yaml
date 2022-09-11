@@ -37,7 +37,7 @@ jobs:
       - name: Build & Push Nuget
         uses: ./.github/actions/build-push-net
         with:
-          working_directory: "src/csharp/Core.Grpc.Protos"
+          working_directory: "./src/csharp/Core.Grpc.Protos"
           github_token: ${{ secrets.PUSH_PACKAGE }}
           next_version: ${{ steps.get-next-version.outputs.next_version }}
 

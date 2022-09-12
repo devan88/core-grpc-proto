@@ -4,6 +4,9 @@ inputs:
   working_directory:
     description: "Working directory containing project"
     required: true
+  project_name:
+    description: "The project name"
+    required: true
   github_token:
     description: "Github token to push nuget package"
     required: true
@@ -15,29 +18,39 @@ runs:
   steps:
     - name: checkout
       uses: actions/checkout@v3
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.8
-    - run: npm --version
-      working-directory: ${{ inputs.working_directory }}
+    - name: Build Dockerfile
+      run: |
+        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.current_version }} -t ${{ inputs.project_name }}:${{ inputs.current_version }}
       shell: bash
-    - run: npm ci
-      working-directory: ${{ inputs.working_directory }}
+    - name: Run Dockerfile
+      run: |
+        docker run --rm -itd --name npm-package ${{ inputs.project_name }}:${{ inputs.current_version }}
+        docker cp npm-package:/packages/${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.current_version }}.tgz .
+        docker rm core-grpc-web-protos --force
       shell: bash
-    - run: npm run build
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
-    - run: npm version ${{ inputs.next_version }}
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
-    - run: mkdir -p ./bin
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
-    - run: npm run pack
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
-    - run: npm publish ./bin/${{ github.repository_owner }}-core-grpc-web-protos-${{ inputs.next_version }}.tgz
+    # - name: Setup Node
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 18.8
+    # - run: npm --version
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    # - run: npm ci
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    # - run: npm run build
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    # - run: npm version ${{ inputs.next_version }}
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    # - run: mkdir -p ./bin
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    # - run: npm run pack
+    #   working-directory: ${{ inputs.working_directory }}
+    #   shell: bash
+    - run: npm publish ./${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.current_version }}.tgz
       env:
         NPM_TOKEN: ${{ inputs.github_token }}
       working-directory: ${{ inputs.working_directory }}

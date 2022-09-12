@@ -1,6 +1,6 @@
 FROM node:18.8-buster-slim AS base
 ARG PROTOS_PATH="./protos"
-ARG WORKSPACE="./src/npm/core-grpc-web-protos"
+ARG WORKSPACE="./src/npm/core-grpc-node-protos"
 WORKDIR /build
 COPY ${PROTOS_PATH} /protos
 COPY ${WORKSPACE} .

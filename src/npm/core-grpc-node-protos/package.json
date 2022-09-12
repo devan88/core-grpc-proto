@@ -1,5 +1,5 @@
 {
-  "name": "core-grpc-node-protos",
+  "name": "@devan88/core-grpc-node-protos",
   "version": "0.0.0",
   "description": "protos package",
   "main": "lib/index.js",
@@ -9,7 +9,8 @@
     "protos"
   ],
   "scripts": {
-    "build-protos": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/build.ps1",
+    "build-protos-ps": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./scripts/build.ps1",
+    "build-protos-sh": "sh ./scripts/build.sh",
     "build": "tsc",
     "test": "npx ts-node src/tests/index.test.ts",
     "pack": "npm pack --pack-destination ./bin"

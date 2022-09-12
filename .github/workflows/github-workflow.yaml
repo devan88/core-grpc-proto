@@ -51,7 +51,7 @@ jobs:
           next_version: ${{ needs.prepare-build.outputs.next_version }}
   build-push-core-grpc-web-protos-npm:
     needs: prepare-build
-    name: Build Npm
+    name: Build Npm Node
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -60,5 +60,20 @@ jobs:
         uses: ./.github/actions/build-push-npm
         with:
           working_directory: "./src/npm/core-grpc-web-protos"
+          project_name: "core-grpc-web-protos"
+          github_token: ${{ secrets.PUSH_PACKAGE }}
+          next_version: ${{ needs.prepare-build.outputs.next_version }}
+  build-push-core-grpc-node-protos-npm:
+    needs: prepare-build
+    name: Build Npm Web
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Build & Push Npm
+        uses: ./.github/actions/build-push-npm
+        with:
+          working_directory: "./src/npm/core-grpc-node-protos"
+          project_name: "core-grpc-node-protos"
           github_token: ${{ secrets.PUSH_PACKAGE }}
           next_version: ${{ needs.prepare-build.outputs.next_version }}

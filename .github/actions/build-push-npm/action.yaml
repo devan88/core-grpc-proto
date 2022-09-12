@@ -32,24 +32,6 @@ runs:
         docker cp npm-package:/packages/${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz ${{ inputs.working_directory }}
         docker rm npm-package --force
       shell: bash
-    # - run: npm --version
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
-    # - run: npm ci
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
-    # - run: npm run build
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
-    # - run: npm version ${{ inputs.next_version }}
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
-    # - run: mkdir -p ./bin
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
-    # - run: npm run pack
-    #   working-directory: ${{ inputs.working_directory }}
-    #   shell: bash
     - run: npm publish ./${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz
       env:
         NPM_TOKEN: ${{ inputs.github_token }}

@@ -20,12 +20,12 @@ runs:
       uses: actions/checkout@v3
     - name: Build Dockerfile
       run: |
-        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.current_version }} -t ${{ inputs.project_name }}:${{ inputs.current_version }}
+        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.next_version }} -t ${{ inputs.project_name }}:${{ inputs.next_version }}
       shell: bash
     - name: Run Dockerfile
       run: |
-        docker run --rm -itd --name npm-package ${{ inputs.project_name }}:${{ inputs.current_version }}
-        docker cp npm-package:/packages/${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.current_version }}.tgz .
+        docker run --rm -itd --name npm-package ${{ inputs.project_name }}:${{ inputs.next_version }}
+        docker cp npm-package:/packages/${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz .
         docker rm core-grpc-web-protos --force
       shell: bash
     # - name: Setup Node
@@ -50,8 +50,7 @@ runs:
     # - run: npm run pack
     #   working-directory: ${{ inputs.working_directory }}
     #   shell: bash
-    - run: npm publish ./${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.current_version }}.tgz
+    - run: npm publish ./${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz
       env:
         NPM_TOKEN: ${{ inputs.github_token }}
-      working-directory: ${{ inputs.working_directory }}
       shell: bash

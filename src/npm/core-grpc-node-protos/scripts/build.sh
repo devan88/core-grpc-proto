@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /protos;
+mkdir -p /build/protos
 output_dir="/build/protos";
 # grpc-js
 # JavaScript code generating

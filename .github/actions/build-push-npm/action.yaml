@@ -25,5 +25,5 @@ runs:
       shell: bash
     - name: Run Dockerfile & Push
       run: |
-        docker run --rm -it -e NPM_TOKEN=${{ inputs.github_token }} --name npm-package core-grpc-npm-proto:${{ inputs.next_version }}
+        docker run --rm -e NPM_TOKEN=${{ inputs.github_token }} --name npm-package core-grpc-npm-proto:${{ inputs.next_version }}
       shell: bash

@@ -52,7 +52,7 @@ jobs:
           nuget_source: "https://nuget.pkg.github.com/devan88/index.json"
   build-push-core-grpc-npm-proto:
     needs: prepare-build
-    name: Build Npm Node
+    name: Build Npm
     runs-on: ubuntu-latest
     steps:
       - name: checkout

@@ -1,5 +1,5 @@
 FROM node:18.8-buster-slim AS base
-ARG PROTOS_PATH="../../protos"
+ARG PROTOS_PATH="./protos"
 ARG WORKSPACE="./src/npm"
 WORKDIR /build
 RUN mkdir -p ./bin

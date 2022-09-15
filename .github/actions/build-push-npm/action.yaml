@@ -4,9 +4,6 @@ inputs:
   working_directory:
     description: "Working directory containing project"
     required: true
-  project_name:
-    description: "The project name"
-    required: true
   github_token:
     description: "Github token to push nuget package"
     required: true
@@ -24,16 +21,9 @@ runs:
         node-version: 18.8
     - name: Build Dockerfile
       run: |
-        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.next_version }} -t ${{ inputs.project_name }}:${{ inputs.next_version }}
+        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.next_version }} -t core-grpc-npm-proto:${{ inputs.next_version }}
       shell: bash
-    - name: Run Dockerfile
+    - name: Run Dockerfile & Push
       run: |
-        docker run --rm -itd --name npm-package ${{ inputs.project_name }}:${{ inputs.next_version }}
-        docker cp npm-package:/packages/${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz ${{ inputs.working_directory }}
-        docker rm npm-package --force
-      shell: bash
-    - run: npm publish ./${{ github.repository_owner }}-${{ inputs.project_name }}-${{ inputs.next_version }}.tgz
-      env:
-        NPM_TOKEN: ${{ inputs.github_token }}
-      working-directory: ${{ inputs.working_directory }}
+        docker run --rm -it --name -e NPM_TOKEN=${{ inputs.github_token }} npm-package core-grpc-npm-proto:${{ inputs.next_version }}
       shell: bash

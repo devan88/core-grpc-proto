@@ -10,36 +10,20 @@ inputs:
   next_version:
     description: "Next version"
     required: true
+  nuget_source:
+    description: "Nuget source"
+    required: true
+
 runs:
   using: composite
   steps:
     - name: checkout
       uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2.1.0
-      with:
-        dotnet-version: 6.0.x
-    - name: Update nuget source
-      working-directory: ${{ inputs.working_directory }}
-      run: >-
-        dotnet nuget update source github
-        --username "devan88"
-        --password ${{ inputs.github_token }}
-        --store-password-in-clear-text
+    - name: Build Dockerfile
+      run: |
+        docker build -f ${{ inputs.working_directory }}/Dockerfile . --build-arg VERSION=${{ inputs.next_version }} --build-arg PAT=${{ inputs.github_token }} -t core-grpc-csharp-proto:${{ inputs.next_version }}
       shell: bash
-    - name: Restore dependencies
-      working-directory: ${{ inputs.working_directory }}
-      run: dotnet restore
-      shell: bash
-    - name: Build
-      working-directory: ${{ inputs.working_directory }}
-      run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
-      shell: bash
-    - name: Pack
-      working-directory: ${{ inputs.working_directory }}
-      run: dotnet pack --configuration ${{ env.CONFIGURATION }} -p:Version=${{ inputs.next_version }}
-      shell: bash
-    - name: Push
-      working-directory: ${{ inputs.working_directory }}
-      run: dotnet nuget push "**/bin/${{ env.CONFIGURATION }}/*.nupkg" --source github
+    - name: Run Dockerfile & Push
+      run: |
+        docker run --rm --name push-packages core-grpc-csharp-proto:${{ inputs.next_version }} --source ${{ inputs.nuget_source }} --api-key ${{ inputs.github_token }}
       shell: bash

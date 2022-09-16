@@ -20,7 +20,7 @@ runs:
     - name: Run git-semver
       id: run-git-semver
       run: |
-        docker pull ghcr.io/devan88/git-semver:1.0.0
-        next_version=$(docker run --rm ghcr.io/devan88/git-semver:1.0.0 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+        docker pull ghcr.io/devan88/core-tools-git-semver:1.0.0
+        next_version=$(docker run --rm ghcr.io/devan88/core-tools-git-semver:1.0.0 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
         echo "::set-output name=next_version::$(echo $next_version)"
       shell: bash

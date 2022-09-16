@@ -9,8 +9,15 @@
     </PackageReference>
   </ItemGroup>
 
+  <PropertyGroup Condition="!Exists('../../../../protos')">
+    <ProtobufRootFolder>/protos</ProtobufRootFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('../../../../protos')">
+    <ProtobufRootFolder>../../../../protos</ProtobufRootFolder>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Protobuf Include="../../../../protos/**/*.proto" OutputDir="protos/%(RecursiveDir)" CompileOutputs="false" GrpcServices="Server,Client" />
+    <Protobuf Include="$(ProtobufRootFolder)/**/*.proto" OutputDir="protos/%(RecursiveDir)" CompileOutputs="false" GrpcServices="Server,Client" />
   </ItemGroup>
 
   <ItemGroup>

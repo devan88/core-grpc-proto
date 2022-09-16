@@ -1,6 +1,6 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 # https://andrewlock.net/pushing-nuget-packages-built-in-docker-by-running-the-container/
-FROM mcr.microsoft.com/dotnet/sdk:6.0.401-alpine3.16 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.401 AS build
 ARG VERSION
 ARG PAT
 #ARG NUGET_URL
@@ -11,7 +11,7 @@ ARG WORKSPACE="./src/csharp"
 WORKDIR /build
 COPY ${WORKSPACE}/*.sln ./
 COPY ${WORKSPACE}/nuget.config .
-COPY ./protos .
+COPY ./protos /protos
 # Copy the main source project files
 COPY ${WORKSPACE}/src/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
@@ -20,7 +20,6 @@ COPY ${WORKSPACE}/test/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p test/${file%.*}/ && mv $file test/${file%.*}/; done
 RUN dotnet nuget update source github --username ArtifactsDocker --password $PAT --store-password-in-clear-text
 RUN dotnet restore
-COPY . .
 RUN dotnet build  -c Release --no-restore  
 RUN dotnet pack -p:Version=$VERSION -c Release --no-restore --no-build -o ./artifacts
 #RUN dotnet nuget push /sln/artifacts/*.nupkg --source NUGET_URL --api-key $NUGET_KEY

@@ -17,15 +17,10 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: checkout
-      uses: actions/checkout@v3
-    - name: Build git-semver
-      run: |
-        docker build -f ./Dockerfile . -t git-semver:${{ inputs.current_version }}
-      shell: bash
     - name: Run git-semver
       id: run-git-semver
       run: |
-        next_version=$(docker run --rm git-semver:${{ inputs.current_version }} git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
+        docker pull ghcr.io/devan88/git-semver:1.0.0
+        next_version=$(docker run --rm ghcr.io/devan88/git-semver:1.0.0 git-semver ${{ inputs.current_version }} ${{ inputs.current_branch }} ${{ inputs.current_commit }})
         echo "::set-output name=next_version::$(echo $next_version)"
       shell: bash

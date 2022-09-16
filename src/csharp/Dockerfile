@@ -21,7 +21,7 @@ RUN for file in $(ls *.csproj); do mkdir -p test/${file%.*}/ && mv $file test/${
 RUN dotnet nuget update source github --username ArtifactsDocker --password $PAT --store-password-in-clear-text
 RUN dotnet restore
 RUN dotnet build  -c Release --no-restore  
-RUN dotnet pack -p:Version=$VERSION -c Release --no-restore --no-build -o ./artifacts
+RUN dotnet pack -p:Version=$VERSION -c Release --no-restore -o ./artifacts
 #RUN dotnet nuget push /sln/artifacts/*.nupkg --source NUGET_URL --api-key $NUGET_KEY
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0.401-alpine3.16 AS final
